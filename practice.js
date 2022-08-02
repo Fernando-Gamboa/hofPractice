@@ -10,12 +10,15 @@
 
 // use _.each to create a copy of the given array.
 var moreFruits = function(fruits) { // Completed
+  // create empty array
   var results = [];
 
-  _.each(fruits, function(fruit, index, collection) {
-    results.push(fruit);
+  // iterate through array using the each() method
+  _.each(fruits, function(currentValue, index, collection) {
+    results.push(currentValue);
   });
 
+  // return array
   return results;
 };
 
@@ -25,9 +28,9 @@ var multiplesOfFive = function(numbers) { // Completed
   // create result set to 0
   var result = 0;
   // use _.each() to iterate through numbers array
-  _.each(numbers, function(number, index, collection) {
+  _.each(numbers, function(currentValue, index, collection) {
     // if evenly divides in 5
-    if (number % 5 === 0) {
+    if (currentValue % 5 === 0) {
       // increment result by 1
       result++;
     }
@@ -45,65 +48,38 @@ var multiplesOfFive = function(numbers) { // Completed
 // use _.filter to return the fruits array with only the desired fruit.
 var onlyOneFruit = function(fruits, targetFruit) { // Completed
   // use _.filter() to iterate through fruits array
-  _.filter(fruits, function(value, index) {
+  return _.filter(fruits, function(currentValue, index, collection) {
     // if value equals targetFruit
-    if (value === targetFruit) {
-      // assign fruits array to value
-      fruits = [value];
+    if (currentValue === targetFruit) {
+      // assign fruits array to currentValue
+      return currentValue;
     }
   });
-  // return fruits array
-  return fruits;
 };
 
 // use _.filter to return the fruits array with only fruits
 // starting with the letter 'P'.
 var startsWith = function(fruits, letter) { // Completed
-  // create boolean variable
-  var reset = false;
   // iterate through fruits array
-  _.filter(fruits, function(value, index) {
+  return _.filter(fruits, function(currentValue, index, collection) {
     // if first letter in value equals letter
-    if (value[0] === letter) {
-      // if reset is false
-      if (reset === false) {
-        // reset the fruits array and set it to one value array
-        fruits = [value];
-        // set reset to true
-        reset = true;
-      } else { // else if reset is true
-        // push values into new fruits array
-        fruits.push(value);
-      }
+    if (currentValue[0] === letter) {
+      // return that value
+      return currentValue;
     }
   });
-  // return fruits array
-  return fruits;
 };
 
 // return a filtered array containing only cookie-type desserts.
 var cookiesOnly = function(desserts) { // Completed
-  // create boolean variable
-  var reset = false;
   // iterate through fruits array
-  _.filter(desserts, function(value, key) {
-
+  return _.filter(desserts, function(currentValue, index, collection) {
     // if value type in value equals cookie
-    if (value['type'] === 'cookie') {
-      // if reset is false
-      if (reset === false) {
-        // reset the desserts array and set it to one value array
-        desserts = [value];
-        // set reset to true
-        reset = true;
-      } else { // else if reset is true
-        // push values into new desserts array
-        desserts.push(value);
-      }
+    if (currentValue['type'] === 'cookie') {
+      // return the current value
+      return currentValue;
     }
   });
-  // return desserts array
-  return desserts;
 };
 
 /*
@@ -114,15 +90,13 @@ var cookiesOnly = function(desserts) { // Completed
 
 // return the total price of all products.
 var sumTotal = function(products) { // Completed
-  // create total var set to 0
-  var total = 0;
   // iterate through products array and objects
-  _.reduce(products, function(value, index) {
+  return _.reduce(products, function(accumulator, currentValue, index) {
     // add total with each object price
-    total += Number(index['price'].slice(1));
-  }, 0);
-  // return total amount
-  return total;
+    accumulator += Number(currentValue['price'].slice(1));
+    // return total amount
+    return accumulator;
+  }, 0); // accumulator is set to 0
 };
 
 // return an object consisting of dessert types and how many of each.
@@ -164,36 +138,32 @@ var dessertCategories = function(desserts) { // Completed
 // movies that came out between 1990 and 2000.
 // TIP: use an array as your accumulator - don't push to an external array!
 var ninetiesKid = function(movies) { // Completed
-  // accumulator set to emoty array
-  var accumulator = [];
   // iterate with reduce through array
-  _.reduce(movies, function(value, key, collection) {
+  return _.reduce(movies, function(accumulator, currentValue, index) {
     // if value is between 1990 and 2000
-    if (key['releaseYear'] >= 1990 && key['releaseYear'] <= 2000) {
+    if (currentValue['releaseYear'] >= 1990 && currentValue['releaseYear'] <= 2000) {
       // use accumulator to push movies
-      accumulator.push(key['title']);
+      accumulator.push(currentValue['title']);
     }
-  });
-  // return accumulator
-  return accumulator;
+    // return accumulator
+    return accumulator;
+  }, []); // set empty array to accumulator
 };
 
 // return an boolean stating if there exists a movie with a shorter
 // runtime than your time limit.
 // timeLimit is an integer representing a number of minutes.
 var movieNight = function(movies, timeLimit) { // Completed
-  // count and keep track of how many movies can watch
-  var count = 0;
   // iterate with reduce through array
-  _.reduce(movies, function(value, key, collection) {
+  return _.reduce(movies, function(accumulator, currentValue, index) {
     // if value is shorter than timeLimit
-    if (key['runtime'] < timeLimit) {
-      // increment count
-      count++;
+    if (currentValue['runtime'] < timeLimit) {
+      // increment accumulator
+      accumulator++;
     }
-  });
-  // Ternanry: if count is greater than 0, return true, else return false
-  return (count > 0) ? true : false;
+    // Ternanry: if accumulator is greater than 0, return true, else return false
+    return (accumulator > 0) ? true : false;
+  }, 0); // set accumulator to 0
 };
 
 /*
